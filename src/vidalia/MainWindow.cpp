@@ -38,6 +38,7 @@
 #include <QMenuBar>
 #include <QTimer>
 #include <QTextStream>
+#include <QKeySequence>
 
 #ifdef Q_WS_MAC
 #include <Carbon/Carbon.h>
@@ -434,6 +435,10 @@ MainWindow::createActions()
   connect(_actionStartStopTor, SIGNAL(triggered()), this, SLOT(start()));
 
   _actionExit = new QAction(tr("Exit"), this);
+  /* This just add tip into menu bar. */
+  _actionExit->setShortcut(tr("Ctrl+Q"));
+  /* This install actual shortcut */
+  setShortcut(tr("Ctrl+Q"), SLOT(close()));
   connect(_actionExit, SIGNAL(triggered()), this, SLOT(close()));
 
   _actionShowBandwidth = new QAction(tr("Bandwidth Graph"), this);
@@ -564,6 +569,7 @@ MainWindow::createMenuBar()
   _actionShowAbout->setMenuRole(QAction::AboutRole);
   _actionExit->setText("quit");
   _actionExit->setMenuRole(QAction::QuitRole);
+  _actionExit->setShortcut(tr("Ctrl+Q"));
 
   /* The File, Help, and Configure menus will get merged into the application
    * menu by Qt. */
